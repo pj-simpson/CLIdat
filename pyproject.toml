@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "clidat"
+version = "0.1.0"
+description = "CLI Tool for inspecting JSON Data from the Codat API"
+authors = ["Peter Simpson"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+click = "^8.1.3"
+pycompanydata = "^0.1.2"
+python-fx = "^0.2.0"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.0.1"
+isort = "^5.12.0"
+black = "^23.1.0"
+flake8 = "^6.0.0"
+bandit = "^1.7.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+clidat = "clidat.main:cli"
