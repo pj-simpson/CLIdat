@@ -60,8 +60,8 @@ def get_connections(company_id, page_size, page_number, query, order_by):
 def get_connection(company_id, connection):
     credentials = get_token()
     client = Codat(credentials)
-    connection = client.get_connection(company_id, connection)
-    PyfxApp(data=connection).run()
+    connection_result = client.get_connection(company_id, connection)
+    PyfxApp(data=connection_result).run()
 
 
 @click.command("get-datasets")
@@ -85,8 +85,8 @@ def get_datasets(company_id, page_size, page_number, query, order_by):
 def get_dataset(company_id, dataset):
     credentials = get_token()
     client = Codat(credentials)
-    dataset = client.get_data_set(company_id, dataset)
-    PyfxApp(data=dataset).run()
+    dataset_result = client.get_data_set(company_id, dataset)
+    PyfxApp(data=dataset_result).run()
 
 
 @click.command("get-data-status")
