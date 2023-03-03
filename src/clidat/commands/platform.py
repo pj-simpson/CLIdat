@@ -69,7 +69,7 @@ def get_connection(company_id, connection):
 def get_datasets(company_id, page_size, page_number, query, order_by):
     credentials = get_token()
     client = Codat(credentials)
-    datasets = client.get_data_sets(
+    datasets = client.get_data_sets_page(
         company_id=company_id,
         page_size=page_size,
         page_number=page_number,
