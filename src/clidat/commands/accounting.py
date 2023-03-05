@@ -8,7 +8,6 @@ from clidat.meta import (
     company_id__and_connection_required_with_pagination,
     company_id_required,
     company_id_required_with_pagination,
-    pagination,
 )
 
 
@@ -55,7 +54,7 @@ def get_account_transactions(
     PyfxApp(data=account_transactions).run()
 
 
-@click.command("get-account_transaction")
+@click.command("get-account-transaction")
 @click.option("--account-transaction", required=True, type=str)
 @company_and_connection_ids_required
 def get_account_transaction(company_id, connection, account_transaction):
@@ -85,7 +84,7 @@ def get_bills(company_id, page_size, page_number, query, order_by):
 @click.command("get-bill")
 @click.option("--bill", required=True, type=str)
 @company_id_required
-def get_account(company_id, bill):
+def get_bill(company_id, bill):
     credentials = get_token()
     client = Codat(credentials)
     bill_result = client.get_bill(company_id, bill)
@@ -110,74 +109,58 @@ def get_suppliers(company_id, page_size, page_number, query, order_by):
 @click.command("get-supplier")
 @click.option("--supplier", required=True, type=str)
 @company_id_required
-def get_account(company_id, supplier):
+def get_supplier(company_id, supplier):
     credentials = get_token()
     client = Codat(credentials)
     supplier_result = client.get_supplier(company_id, supplier)
     PyfxApp(data=supplier_result).run()
 
 
-# def get_invoices_page(
-#         self,
-#         company_id: str,
-#         page_number: int = 1,
-#         page_size: int = 100,
-#         query: str = None,
-#         order_by: str = None,
-# ) -> PaginatedResponse[Invoice]:
-#     """Gets a page of invoices for a company
-#     :param company_id: Unique identifier for a company
-#     :type company_id: str
-#     :param query: Query to pass to Codat API to filter results
-#     :type query: str
-#     :param order_by: Name of the field to order the results by.
-#         Defaults to ascending; prefix with `-` to sort in descending order.
-#     :type orderby: str
-#     :param page_number: Page number to retrieve.  Default: 1
-#     :type page_number: int
-#     :param page_size: Number of records to retrieve.  Default: 100
-#     :type page_size: int
-#     :return: A page of invoices
-#     :rtype: PaginatedResponse[Invoice]
-#     """
-#     invoice_handler = InvoicesHandler(self.key, self.env)
-#     return invoice_handler.get_pageof_invoices(
-#         company_id, page_number, page_size, query, order_by
-#     )
-#
-#
-# def get_invoice(self, company_id: str, invoice_id: str) -> Invoice:
-#     """Gets an invoice (by ID) for a company
-#     :param company_id: Unique identifier for a company
-#     :type company_id: str
-#     :param invoice_id: Unique identifier for the invoice
-#     :type invoice_id: str
-#     :return: An invoice
-#     :rtype: Invoice
-#     """
-#     invoice_handler = InvoicesHandler(self.key, self.env)
-#     return invoice_handler.get_single_invoice(company_id, invoice_id)
-#
-#
+@click.command("get-invoices")
+@company_id_required_with_pagination
+def get_invoices(company_id, page_size, page_number, query, order_by):
+    credentials = get_token()
+    client = Codat(credentials)
+    invoices = client.get_invoices_page(
+        company_id=company_id,
+        page_size=page_size,
+        page_number=page_number,
+        query=query,
+        order_by=order_by,
+    )
+    PyfxApp(data=invoices).run()
 
-#
-#
-# def get_payment_page(
-#         self,
-#         company_id: str,
-#         page_number: int = 1,
-#         page_size: int = 100,
-#         query: str = None,
-#         order_by: str = None,
-# ) -> PaginatedResponse[Payment]:
-#     """ """
-#     payments_handler = PaymentsHandler(self.key, self.env)
-#     return payments_handler.get_page_of_payments(
-#         company_id, page_number, page_size, query, order_by
-#     )
-#
-#
-# def get_payment(self, company_id: str, payment_id: str) -> Payment:
-#     """ """
-#     payments_handler = PaymentsHandler(self.key, self.env)
-#     return payments_handler.get_single_payment(company_id, payment_id)
+
+@click.command("get-invoice")
+@click.option("--invoice", required=True, type=str)
+@company_id_required
+def get_invoice(company_id, invoice):
+    credentials = get_token()
+    client = Codat(credentials)
+    invoice_result = client.get_invoice(company_id, invoice)
+    PyfxApp(data=invoice_result).run()
+
+
+@click.command("get-payments")
+@company_id_required_with_pagination
+def get_payments(company_id, page_size, page_number, query, order_by):
+    credentials = get_token()
+    client = Codat(credentials)
+    payments = client.get_payment_page(
+        company_id=company_id,
+        page_size=page_size,
+        page_number=page_number,
+        query=query,
+        order_by=order_by,
+    )
+    PyfxApp(data=payments).run()
+
+
+@click.command("get-payment")
+@click.option("--payment", required=True, type=str)
+@company_id_required
+def get_payment(company_id, payment):
+    credentials = get_token()
+    client = Codat(credentials)
+    payment_result = client.get_payment(company_id, payment)
+    PyfxApp(data=payment_result).run()
