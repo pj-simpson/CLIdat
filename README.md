@@ -14,17 +14,19 @@ pip install clidat
 ## Quick Start
 
 ```console
-foo@bar:~$ clidat auth
+user@host:~$ clidat auth
 Your Codat API Key:
 
-foo@bar:~$ clidat --get-companies
+user@host:~$ clidat get-companies
 ```
+![Clidat Get Companies](./clidat_get_companies_image.png)
+
 
 ## Docs
 
 To see a list of all avaliable commands run:
 ```console
-foo@bar:~$ run clidat --help
+user@host:~$ run clidat --help
 
   auth
   get-account
@@ -37,7 +39,7 @@ To get details on a particular command, just append the --help
 flag  onto the end of the command, for example: 
 
 ```console
-foo@bar:~$ clidat get-payment --help
+user@host:~$ clidat get-payment --help
 Options:
   --payment TEXT          [required]
   -id, --company-id TEXT  [required]
