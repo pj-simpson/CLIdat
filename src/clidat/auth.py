@@ -12,7 +12,7 @@ import click
     hide_input=True,
     help="Codat credentials",
 )
-def auth(credentials):
+def auth(credentials: str):
     # start afresh every time we persist a token. We only ever want one.
     if os.path.exists("ct.db"):
         os.remove("ct.db")
