@@ -8,7 +8,7 @@ import click
 @click.command()
 @click.option(
     "--credentials",
-    prompt="Your Codat API Key:",
+    prompt="Your Codat API Key",
     hide_input=True,
     help="Codat credentials",
 )

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "clidat"
-version = "0.1.0"
+version = "0.1.1"
 description = "CLI Tool for inspecting JSON Data from the Codat API"
 authors = ["Peter Simpson"]
 license = "MIT"

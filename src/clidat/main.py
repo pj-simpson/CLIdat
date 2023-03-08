@@ -1,5 +1,6 @@
 import click
 from pycompanydata import Codat
+import os
 
 from clidat.auth import auth, get_token
 from clidat.commands.accounting import (
@@ -31,9 +32,10 @@ from clidat.commands.platform import (
 @click.group()
 @click.pass_context
 def cli(ctx: click.Context):
-    credentials = get_token()
-    client = Codat(credentials)
-    ctx.obj = client
+    if os.path.exists("ct.db"):
+        credentials = get_token()
+        client = Codat(credentials)
+        ctx.obj = client
 
 
 cli.add_command(auth)
