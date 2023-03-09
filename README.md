@@ -6,11 +6,19 @@ The Command Line Interface itself is written with [Click](https://github.com/pal
 whilst the output of the different commands is passed to
 a TUI from the [Pyfx](https://github.com/cielong/pyfx) package.
 
+I work in support at Codat, and have built this tool as a personal project
+to use as part of my day-job. This isnt an officially 
+supported product.
+
 ## Installation
+
+CLIdat is distributed via the Python Package Index (PyPI). 
 
 ```console
 pip install clidat
 ```
+This software will only work on MacOS or Linux
+
 ## Quick Start
 
 ```console
