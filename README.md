@@ -16,7 +16,7 @@ CLIdat is distributed via the Python Package Index (PyPI). We reccomend installi
 it inside a [virtual environment](https://docs.python.org/3/library/venv.html)
 
 ```console
-(venv) user@host:~$pip install clidat
+(venv) user@host:~$ pip install clidat
 ```
 This software will only work on MacOS or Linux. Cygwin and WSL do not yield good results, either.  
 
