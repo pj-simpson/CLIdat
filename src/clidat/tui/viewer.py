@@ -4,7 +4,7 @@ from rich.text import Text
 from rich.json import JSON
 
 from textual.app import App as TUIApp, ComposeResult
-from textual.widgets import Header, Footer, Tree, Static
+from textual.widgets import Header, Footer, Tree, Static,TextLog
 from textual.widgets.tree import TreeNode
 
 
@@ -13,12 +13,15 @@ class JSONViewer(TUIApp):
         super().__init__()
         self.data = data
 
-
     def compose(self) -> ComposeResult:
-        yield Static(JSON(self.data))
+        yield Header()
+        yield TextLog(highlight=True,markup=True)
 
-    def on_button_pressed(self) -> None:
-        self.exit()
+    def on_ready(self) -> None:
+        text_log = self.query_one(TextLog)
+        text_log.write(JSON(self.data))
+
+
 
 
 class TreeViewer(TUIApp):

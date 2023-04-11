@@ -6,7 +6,7 @@ from clidat.meta import (
     pagination,
 )
 
-from ..tui.viewer import TreeViewer
+from ..tui.viewer import TreeViewer, JSONViewer
 
 
 @click.command("get-company")
@@ -15,7 +15,7 @@ from ..tui.viewer import TreeViewer
 def get_company(ctx: click.Context, company_id: str):
     client = ctx.obj
     company = client.get_company(company_id)
-    TreeViewer(data=company.json()).run()
+    JSONViewer(data=company.json()).run()
 
 
 @click.command("get-companies")
