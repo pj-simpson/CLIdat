@@ -60,3 +60,12 @@ def company_id__and_connection_required_with_pagination(func: Callable):
         return func(*args, **kwargs)
 
     return wrapper
+
+def plain_json_option(func:Callable):
+    @click.option("--json","-j", is_flag=True, default=False, help="View plain JSON response")
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    return wrapper
+
+
+

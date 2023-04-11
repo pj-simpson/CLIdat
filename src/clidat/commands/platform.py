@@ -6,7 +6,7 @@ from clidat.meta import (
     pagination,
 )
 
-from ..tui.viewer import Viewer
+from ..tui.viewer import TreeViewer
 
 
 @click.command("get-company")
@@ -15,7 +15,7 @@ from ..tui.viewer import Viewer
 def get_company(ctx: click.Context, company_id: str):
     client = ctx.obj
     company = client.get_company(company_id)
-    Viewer(data=company.json()).run()
+    TreeViewer(data=company.json()).run()
 
 
 @click.command("get-companies")
@@ -32,7 +32,7 @@ def get_companies(
     companies = client.get_companies_page(
         page_size=page_size, page_number=page_number, query=query, order_by=order_by
     )
-    Viewer(data=companies.json()).run()
+    TreeViewer(data=companies.json()).run()
 
 
 @click.command("get-sync-settings")
@@ -41,7 +41,7 @@ def get_companies(
 def get_sync_settings(ctx: click.Context, company_id: str):
     client = ctx.obj
     sync_settings = client.get_sync_settings(company_id)
-    Viewer(data=sync_settings.json()).run()
+    TreeViewer(data=sync_settings.json()).run()
 
 
 @click.command("get-connections")
@@ -63,7 +63,7 @@ def get_connections(
         query=query,
         order_by=order_by,
     )
-    Viewer(data=connections.json()).run()
+    TreeViewer(data=connections.json()).run()
 
 
 @click.command("get-connection")
@@ -73,7 +73,7 @@ def get_connections(
 def get_connection(ctx: click.Context, company_id: str, connection: str):
     client = ctx.obj
     connection_result = client.get_connection(company_id, connection)
-    Viewer(data=connection_result.json()).run()
+    TreeViewer(data=connection_result.json()).run()
 
 
 @click.command("get-datasets")
@@ -95,7 +95,7 @@ def get_datasets(
         query=query,
         order_by=order_by,
     )
-    Viewer(data=datasets.json()).run()
+    TreeViewer(data=datasets.json()).run()
 
 
 @click.command("get-dataset")
@@ -105,7 +105,7 @@ def get_datasets(
 def get_dataset(ctx, company_id, dataset):
     client = ctx.obj
     dataset_result = client.get_data_set(company_id, dataset)
-    Viewer(data=dataset_result.json()).run()
+    TreeViewer(data=dataset_result.json()).run()
 
 
 @click.command("get-data-status")
@@ -114,4 +114,4 @@ def get_dataset(ctx, company_id, dataset):
 def get_data_status(ctx: click.Context, company_id: str):
     client = ctx.obj
     dataset = client.get_data_status(company_id)
-    Viewer(data=dataset.json()).run()
+    TreeViewer(data=dataset.json()).run()

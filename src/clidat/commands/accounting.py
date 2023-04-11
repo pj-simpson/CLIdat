@@ -7,7 +7,7 @@ from clidat.meta import (
     company_id_required_with_pagination,
 )
 
-from ..tui.viewer import Viewer
+from ..tui.viewer import TreeViewer
 
 
 @click.command("get-accounts")
@@ -29,7 +29,7 @@ def get_accounts(
         query=query,
         order_by=order_by,
     )
-    Viewer(data=accounts.json()).run()
+    TreeViewer(data=accounts.json()).run()
 
 
 @click.command("get-account")
@@ -39,7 +39,7 @@ def get_accounts(
 def get_account(ctx: click.Context, company_id: str, account: str):
     client = ctx.obj
     account_result = client.get_account(company_id, account)
-    Viewer(data=account_result.json()).run()
+    TreeViewer(data=account_result.json()).run()
 
 
 @click.command("get-account-transactions")
@@ -63,7 +63,7 @@ def get_account_transactions(
         query=query,
         order_by=order_by,
     )
-    Viewer(data=account_transactions.json()).run()
+    TreeViewer(data=account_transactions.json()).run()
 
 
 @click.command("get-account-transaction")
@@ -77,7 +77,7 @@ def get_account_transaction(
     account_transaction_result = client.get_account_transaction(
         company_id, connection, account_transaction
     )
-    Viewer(data=account_transaction_result.json()).run()
+    TreeViewer(data=account_transaction_result.json()).run()
 
 
 @click.command("get-bills")
@@ -99,7 +99,7 @@ def get_bills(
         query=query,
         order_by=order_by,
     )
-    Viewer(data=bills.json()).run()
+    TreeViewer(data=bills.json()).run()
 
 
 @click.command("get-bill")
@@ -109,7 +109,7 @@ def get_bills(
 def get_bill(ctx: click.Context, company_id: str, bill: str):
     client = ctx.obj
     bill_result = client.get_bill(company_id, bill)
-    Viewer(data=bill_result.json()).run()
+    TreeViewer(data=bill_result.json()).run()
 
 
 @click.command("get-suppliers")
@@ -131,7 +131,7 @@ def get_suppliers(
         query=query,
         order_by=order_by,
     )
-    Viewer(data=suppliers.json()).run()
+    TreeViewer(data=suppliers.json()).run()
 
 
 @click.command("get-supplier")
@@ -141,7 +141,7 @@ def get_suppliers(
 def get_supplier(ctx: click.Context, company_id: str, supplier: str):
     client = ctx.obj
     supplier_result = client.get_supplier(company_id, supplier)
-    Viewer(data=supplier_result.json()).run()
+    TreeViewer(data=supplier_result.json()).run()
 
 
 @click.command("get-invoices")
@@ -163,7 +163,7 @@ def get_invoices(
         query=query,
         order_by=order_by,
     )
-    Viewer(data=invoices.json()).run()
+    TreeViewer(data=invoices.json()).run()
 
 
 @click.command("get-invoice")
@@ -173,7 +173,7 @@ def get_invoices(
 def get_invoice(ctx: click.Context, company_id: str, invoice: str):
     client = ctx.obj
     invoice_result = client.get_invoice(company_id, invoice)
-    Viewer(data=invoice_result.json()).run()
+    TreeViewer(data=invoice_result.json()).run()
 
 
 @click.command("get-payments")
@@ -195,7 +195,7 @@ def get_payments(
         query=query,
         order_by=order_by,
     )
-    Viewer(data=payments.json()).run()
+    TreeViewer(data=payments.json()).run()
 
 
 @click.command("get-payment")
@@ -205,4 +205,4 @@ def get_payments(
 def get_payment(ctx: click.Context, company_id: str, payment: str):
     client = ctx.obj
     payment_result = client.get_payment(company_id, payment)
-    Viewer(data=payment_result.json()).run()
+    TreeViewer(data=payment_result.json()).run()
