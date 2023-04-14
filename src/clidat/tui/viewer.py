@@ -1,11 +1,23 @@
 import json
 
-from rich.text import Text
 from rich.json import JSON
-
-from textual.app import App as TUIApp, ComposeResult
-from textual.widgets import Header, Footer, Tree, Static,TextLog
+from rich.text import Text
+from textual.app import App as TUIApp
+from textual.app import ComposeResult
+from textual.widgets import Footer, Header, Static, TextLog, Tree
 from textual.widgets.tree import TreeNode
+
+
+class ViewerDispatcher:
+    def __init__(self, data: str, json_flag: bool = False):
+        self.data = data
+        self.json = json_flag
+
+    def __call__(self, *args, **kwargs):
+        if self.json:
+            return JSONViewer(self.data).run()
+        else:
+            return TreeViewer(self.data).run()
 
 
 class JSONViewer(TUIApp):
@@ -15,17 +27,14 @@ class JSONViewer(TUIApp):
 
     def compose(self) -> ComposeResult:
         yield Header()
-        yield TextLog(highlight=True,markup=True)
+        yield TextLog(highlight=True, markup=True)
 
     def on_ready(self) -> None:
         text_log = self.query_one(TextLog)
         text_log.write(JSON(self.data))
 
 
-
-
 class TreeViewer(TUIApp):
-
     # This has been altered very little from the Textual 'JSON tree' Example:
     # https: // github.com / Textualize / textual / blob / main / examples / json_tree.py
 
@@ -82,5 +91,5 @@ class TreeViewer(TUIApp):
     def on_mount(self) -> None:
         tree = self.query_one(Tree)
         json_node = tree.root.add("JSON")
-        self.add_json(json_node,self.data)
+        self.add_json(json_node, self.data)
         tree.root.expand()
