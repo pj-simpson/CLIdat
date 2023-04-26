@@ -9,15 +9,16 @@ from textual.widgets.tree import TreeNode
 
 
 class ViewerDispatcher:
-    def __init__(self, data: str, json_flag: bool = False):
+    def __init__(self, data: str, data_type: str, json_flag: bool = False):
         self.data = data
         self.json = json_flag
+        self.data_type = data_type
 
     def __call__(self, *args, **kwargs):
         if self.json:
             return JSONViewer(self.data).run()
         else:
-            return TreeViewer(self.data).run()
+            return TreeViewer(self.data, self.data_type).run()
 
 
 class JSONViewer(TUIApp):
@@ -38,17 +39,18 @@ class TreeViewer(TUIApp):
     # This has been altered very little from the Textual 'JSON tree' Example:
     # https: // github.com / Textualize / textual / blob / main / examples / json_tree.py
 
-    def __init__(self, data: str):
+    def __init__(self, data: str, data_type: str):
         super().__init__()
         self.data = json.loads(data)
+        self.data_type = data_type
 
     def compose(self) -> ComposeResult:
         yield Header()
         yield Footer()
-        yield Tree("Root")
+        yield Tree("Codat API Response")
 
     @classmethod
-    def add_json(cls, node: TreeNode, json_data: object) -> None:
+    def add_json(cls, node: TreeNode, json_data: object, data_type: str) -> None:
         """Adds JSON data to a node.
         Args:
             node (TreeNode): A Tree node.
@@ -86,10 +88,10 @@ class TreeViewer(TUIApp):
                     label = Text(repr(data))
                 node.set_label(label)
 
-        add_node("JSON", node, json_data)
+        add_node(data_type, node, json_data)
 
     def on_mount(self) -> None:
         tree = self.query_one(Tree)
         json_node = tree.root.add("JSON")
-        self.add_json(json_node, self.data)
+        self.add_json(json_node, self.data, self.data_type)
         tree.root.expand()

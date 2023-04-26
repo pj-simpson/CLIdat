@@ -31,7 +31,9 @@ def get_accounts(
         order_by=order_by,
     )
     accounts_json = accounts.json()
-    viewer = ViewerDispatcher(data=accounts_json, json_flag=json)
+    viewer = ViewerDispatcher(
+        data=accounts_json, json_flag=json, data_type="Chart of Accounts"
+    )
     viewer()
 
 
@@ -43,7 +45,9 @@ def get_account(ctx: click.Context, company_id: str, account: str, json: bool = 
     client = ctx.obj
     account_result = client.get_account(company_id, account)
     account_result_json = account_result.json()
-    viewer = ViewerDispatcher(data=account_result_json, json_flag=json)
+    viewer = ViewerDispatcher(
+        data=account_result_json, json_flag=json, data_type="Accounts"
+    )
     viewer()
 
 
@@ -70,7 +74,11 @@ def get_account_transactions(
         order_by=order_by,
     )
     account_transactions_json = account_transactions.json()
-    viewer = ViewerDispatcher(data=account_transactions_json, json_flag=json)
+    viewer = ViewerDispatcher(
+        data=account_transactions_json,
+        json_flag=json,
+        data_type="List of Account Transactions",
+    )
     viewer()
 
 
@@ -90,7 +98,11 @@ def get_account_transaction(
         company_id, connection, account_transaction
     )
     account_transaction_result_json = account_transaction_result.json()
-    viewer = ViewerDispatcher(data=account_transaction_result_json, json_flag=json)
+    viewer = ViewerDispatcher(
+        data=account_transaction_result_json,
+        json_flag=json,
+        data_type="Account Transaction",
+    )
     viewer()
 
 
@@ -115,7 +127,9 @@ def get_bills(
         order_by=order_by,
     )
     bills_json = bills.json()
-    viewer = ViewerDispatcher(data=bills_json, json_flag=json)
+    viewer = ViewerDispatcher(
+        data=bills_json, json_flag=json, data_type="List of Bills"
+    )
     viewer()
 
 
@@ -127,7 +141,7 @@ def get_bill(ctx: click.Context, company_id: str, bill: str, json: bool = False)
     client = ctx.obj
     bill_result = client.get_bill(company_id, bill)
     bill_result_json = bill_result.json()
-    viewer = ViewerDispatcher(data=bill_result_json, json_flag=json)
+    viewer = ViewerDispatcher(data=bill_result_json, json_flag=json, data_type="Bills")
     viewer()
 
 
@@ -152,7 +166,9 @@ def get_suppliers(
         order_by=order_by,
     )
     suppliers_json = suppliers.json()
-    viewer = ViewerDispatcher(data=suppliers_json, json_flag=json)
+    viewer = ViewerDispatcher(
+        data=suppliers_json, json_flag=json, data_type="List of Suppliers"
+    )
     viewer()
 
 
@@ -166,7 +182,9 @@ def get_supplier(
     client = ctx.obj
     supplier_result = client.get_supplier(company_id, supplier)
     supplier_result_json = supplier_result.json()
-    viewer = ViewerDispatcher(data=supplier_result_json, json_flag=json)
+    viewer = ViewerDispatcher(
+        data=supplier_result_json, json_flag=json, data_type="Supplier"
+    )
     viewer()
 
 
@@ -191,7 +209,9 @@ def get_invoices(
         order_by=order_by,
     )
     invoices_json = invoices.json()
-    viewer = ViewerDispatcher(data=invoices_json, json_flag=json)
+    viewer = ViewerDispatcher(
+        data=invoices_json, json_flag=json, data_type="List of Invoices"
+    )
     viewer()
 
 
@@ -203,7 +223,9 @@ def get_invoice(ctx: click.Context, company_id: str, invoice: str, json: bool = 
     client = ctx.obj
     invoice_result = client.get_invoice(company_id, invoice)
     invoice_result_json = invoice_result.json()
-    viewer = ViewerDispatcher(data=invoice_result_json, json_flag=json)
+    viewer = ViewerDispatcher(
+        data=invoice_result_json, json_flag=json, data_type="Invoice"
+    )
     viewer()
 
 
@@ -228,7 +250,9 @@ def get_payments(
         order_by=order_by,
     )
     payments_json = payments.json()
-    viewer = ViewerDispatcher(data=payments_json, json_flag=json)
+    viewer = ViewerDispatcher(
+        data=payments_json, json_flag=json, data_type="List of Payments"
+    )
     viewer()
 
 
@@ -240,5 +264,7 @@ def get_payment(ctx: click.Context, company_id: str, payment: str, json: bool = 
     client = ctx.obj
     payment_result = client.get_payment(company_id, payment)
     payment_result_json = payment_result.json()
-    viewer = ViewerDispatcher(data=payment_result_json, json_flag=json)
+    viewer = ViewerDispatcher(
+        data=payment_result_json, json_flag=json, data_type="Payment"
+    )
     viewer()

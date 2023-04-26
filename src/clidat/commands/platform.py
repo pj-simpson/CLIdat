@@ -16,7 +16,7 @@ def get_company(ctx: click.Context, company_id: str, json: bool = False):
     client = ctx.obj
     company = client.get_company(company_id)
     company_json = company.json()
-    viewer = ViewerDispatcher(data=company_json, json_flag=json)
+    viewer = ViewerDispatcher(data=company_json, json_flag=json, data_type="Company")
     viewer()
 
 
@@ -36,7 +36,9 @@ def get_companies(
         page_size=page_size, page_number=page_number, query=query, order_by=order_by
     )
     companies_json = companies.json()
-    viewer = ViewerDispatcher(data=companies_json, json_flag=json)
+    viewer = ViewerDispatcher(
+        data=companies_json, json_flag=json, data_type="List of Companies"
+    )
     viewer()
 
 
@@ -47,7 +49,9 @@ def get_sync_settings(ctx: click.Context, company_id: str, json: bool = False):
     client = ctx.obj
     sync_settings = client.get_sync_settings(company_id)
     sync_settings_json = sync_settings.json()
-    viewer = ViewerDispatcher(data=sync_settings_json, json_flag=json)
+    viewer = ViewerDispatcher(
+        data=sync_settings_json, json_flag=json, data_type="Sync Settings"
+    )
     viewer()
 
 
@@ -72,7 +76,9 @@ def get_connections(
         order_by=order_by,
     )
     connections_json = connections.json()
-    viewer = ViewerDispatcher(data=connections_json, json_flag=json)
+    viewer = ViewerDispatcher(
+        data=connections_json, json_flag=json, data_type="List of Connections"
+    )
     viewer()
 
 
@@ -86,7 +92,9 @@ def get_connection(
     client = ctx.obj
     connection_result = client.get_connection(company_id, connection)
     connection_result_json = connection_result.json()
-    viewer = ViewerDispatcher(data=connection_result_json, json_flag=json)
+    viewer = ViewerDispatcher(
+        data=connection_result_json, json_flag=json, data_type="Connection"
+    )
     viewer()
 
 
@@ -111,7 +119,9 @@ def get_datasets(
         order_by=order_by,
     )
     datasets_json = datasets.json()
-    viewer = ViewerDispatcher(data=datasets_json, json_flag=json)
+    viewer = ViewerDispatcher(
+        data=datasets_json, json_flag=json, data_type="List of Datasets"
+    )
     viewer()
 
 
@@ -123,7 +133,9 @@ def get_dataset(ctx, company_id, dataset, json: bool = False):
     client = ctx.obj
     dataset_result = client.get_data_set(company_id, dataset)
     dataset_result_json = dataset_result.json()
-    viewer = ViewerDispatcher(data=dataset_result_json, json_flag=json)
+    viewer = ViewerDispatcher(
+        data=dataset_result_json, json_flag=json, data_type="Dataset"
+    )
     viewer()
 
 
@@ -134,5 +146,7 @@ def get_data_status(ctx: click.Context, company_id: str, json: bool = False):
     client = ctx.obj
     data_status = client.get_data_status(company_id)
     data_status_json = data_status.json()
-    viewer = ViewerDispatcher(data=data_status_json, json_flag=json)
+    viewer = ViewerDispatcher(
+        data=data_status_json, json_flag=json, data_type="Data Status"
+    )
     viewer()
