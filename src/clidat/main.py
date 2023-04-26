@@ -1,6 +1,7 @@
+import os
+
 import click
 from pycompanydata import Codat
-import os
 
 from clidat.auth import auth, get_token
 from clidat.commands.accounting import (

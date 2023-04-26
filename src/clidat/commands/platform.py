@@ -1,5 +1,4 @@
 import click
-from pyfx import PyfxApp
 
 from clidat.meta import (
     company_id_required,
@@ -7,14 +6,18 @@ from clidat.meta import (
     pagination,
 )
 
+from ..tui.viewer import ViewerDispatcher
+
 
 @click.command("get-company")
 @click.pass_context
 @company_id_required
-def get_company(ctx: click.Context, company_id: str):
+def get_company(ctx: click.Context, company_id: str, json: bool = False):
     client = ctx.obj
     company = client.get_company(company_id)
-    PyfxApp(data=company).run()
+    company_json = company.json()
+    viewer = ViewerDispatcher(data=company_json, json_flag=json, data_type="Company")
+    viewer()
 
 
 @click.command("get-companies")
@@ -26,21 +29,30 @@ def get_companies(
     page_number: int,
     query: str,
     order_by: str,
+    json: bool = False,
 ):
     client = ctx.obj
     companies = client.get_companies_page(
         page_size=page_size, page_number=page_number, query=query, order_by=order_by
     )
-    PyfxApp(data=companies).run()
+    companies_json = companies.json()
+    viewer = ViewerDispatcher(
+        data=companies_json, json_flag=json, data_type="List of Companies"
+    )
+    viewer()
 
 
 @click.command("get-sync-settings")
 @click.pass_context
 @company_id_required
-def get_sync_settings(ctx: click.Context, company_id: str):
+def get_sync_settings(ctx: click.Context, company_id: str, json: bool = False):
     client = ctx.obj
     sync_settings = client.get_sync_settings(company_id)
-    PyfxApp(data=sync_settings).run()
+    sync_settings_json = sync_settings.json()
+    viewer = ViewerDispatcher(
+        data=sync_settings_json, json_flag=json, data_type="Sync Settings"
+    )
+    viewer()
 
 
 @click.command("get-connections")
@@ -53,6 +65,7 @@ def get_connections(
     page_number: int,
     query: str,
     order_by: str,
+    json: bool = False,
 ):
     client = ctx.obj
     connections = client.get_connections_page(
@@ -62,17 +75,27 @@ def get_connections(
         query=query,
         order_by=order_by,
     )
-    PyfxApp(data=connections).run()
+    connections_json = connections.json()
+    viewer = ViewerDispatcher(
+        data=connections_json, json_flag=json, data_type="List of Connections"
+    )
+    viewer()
 
 
 @click.command("get-connection")
 @click.pass_context
 @click.option("--connection", required=True, type=str)
 @company_id_required
-def get_connection(ctx: click.Context, company_id: str, connection: str):
+def get_connection(
+    ctx: click.Context, company_id: str, connection: str, json: bool = False
+):
     client = ctx.obj
     connection_result = client.get_connection(company_id, connection)
-    PyfxApp(data=connection_result).run()
+    connection_result_json = connection_result.json()
+    viewer = ViewerDispatcher(
+        data=connection_result_json, json_flag=json, data_type="Connection"
+    )
+    viewer()
 
 
 @click.command("get-datasets")
@@ -85,6 +108,7 @@ def get_datasets(
     page_number: int,
     query: str,
     order_by: str,
+    json: bool = False,
 ):
     client = ctx.obj
     datasets = client.get_data_sets_page(
@@ -94,23 +118,35 @@ def get_datasets(
         query=query,
         order_by=order_by,
     )
-    PyfxApp(data=datasets).run()
+    datasets_json = datasets.json()
+    viewer = ViewerDispatcher(
+        data=datasets_json, json_flag=json, data_type="List of Datasets"
+    )
+    viewer()
 
 
 @click.command("get-dataset")
 @click.pass_context
 @click.option("--dataset", required=True, type=str)
 @company_id_required
-def get_dataset(ctx, company_id, dataset):
+def get_dataset(ctx, company_id, dataset, json: bool = False):
     client = ctx.obj
     dataset_result = client.get_data_set(company_id, dataset)
-    PyfxApp(data=dataset_result).run()
+    dataset_result_json = dataset_result.json()
+    viewer = ViewerDispatcher(
+        data=dataset_result_json, json_flag=json, data_type="Dataset"
+    )
+    viewer()
 
 
 @click.command("get-data-status")
 @click.pass_context
 @company_id_required
-def get_data_status(ctx: click.Context, company_id: str):
+def get_data_status(ctx: click.Context, company_id: str, json: bool = False):
     client = ctx.obj
-    dataset = client.get_data_status(company_id)
-    PyfxApp(data=dataset).run()
+    data_status = client.get_data_status(company_id)
+    data_status_json = data_status.json()
+    viewer = ViewerDispatcher(
+        data=data_status_json, json_flag=json, data_type="Data Status"
+    )
+    viewer()
